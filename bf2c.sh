@@ -28,7 +28,7 @@ LINE_NUM=0
 while IFS= read -r string ; do
   LINE_NUM=$((LINE_NUM + 1))
   COLUMN_NUM=0
-  while [ "$string" != "" ] ; do
+  while [ -n "$string" ] ; do
     COLUMN_NUM=$((COLUMN_NUM + 1))
     case "$string" in
     ">"*) echo " ptr++;" ;;

@@ -95,7 +95,7 @@ out_loop_end() {
   echo "LOOP_END${1}:"
 }
 
-out_header > "${OUT_FILE}"
+out_header >"${OUT_FILE}"
 
 LABEL=0
 STACK=""
@@ -118,7 +118,7 @@ while IFS= read -r string ; do
       out_loop_start $LABEL
       ;;
     "]"*)
-      if [ "${STACK}" = "" ] ; then
+      if [ -z "${STACK}" ] ; then
         echo "$(basename $0):${LINE_NUM}:${COLUMN_NUM}: found loop-end without loop-start" 1>&2
         exit 1
       fi

@@ -2,12 +2,12 @@
 # brainf*ck to c-lang translator
 # date: 2018-04-24
 
-VERSION="$(basename $0) version 0.0.1 (2018-04-24)"
+VERSION="$(basename "$0") version 0.0.1 (2018-04-24)"
 
-if [ $# -ne 1 -o "$1" = "-h" -o "$1" = "--help" ] ; then
-  echo "usage: $(basename $0) SOURCE_FILE"
+if [ $# -ne 1 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then
+  echo "usage: $(basename "$0") SOURCE_FILE"
   exit 1
-elif [ "$1" = "-v" -o "$1" = "--version" ] ; then
+elif [ "$1" = "-v" ] || [ "$1" = "--version" ] ; then
   echo "${VERSION}"
   exit 0
 fi
@@ -43,7 +43,7 @@ while IFS= read -r string ; do
       ;;
     "]"*)
       if [ ${NEST} -eq 0 ] ; then
-        echo "$(basename $0):${LINE_NUM}:${COLUMN_NUM}: found loop-end without loop-start" 1>&2
+        echo "$(basename "$0"):${LINE_NUM}:${COLUMN_NUM}: found loop-end without loop-start" 1>&2
         exit 1
       fi
       NEST=$((NEST - 1))
@@ -55,8 +55,8 @@ while IFS= read -r string ; do
 done < "${IN_FILE}" >>"${OUT_FILE}"
 
 cat >>"${OUT_FILE}" <<EOD
- free(buff);
- return 0;
+  free(buff);
+  return 0;
 }
 EOD
 

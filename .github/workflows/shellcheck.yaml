@@ -1,0 +1,15 @@
+name: shellcheck
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: '**.sh'
+jobs:
+  shell_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run shellcheck
+        run: |
+          find . -name '*.sh' -type f -print0 \
+          | xargs -0 shellcheck --external-sources
+        shell: bash
